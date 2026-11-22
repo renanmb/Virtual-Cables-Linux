@@ -78,9 +78,15 @@ if [ -f "/.dockerenv" ]; then
   if [ -d "/home/tarfy/Games" ]; then
     ln -sfn /home/tarfy/Games "${HOME_DIR}/Games" 2>/dev/null || true
   fi
+  if [ -d "/lug-wine-experimental" ]; then
+    mkdir -p /home/tarfy/Documents/GitHub/renanmb /workspaces 2>/dev/null || true
+    ln -sfn /lug-wine-experimental /home/tarfy/Documents/GitHub/renanmb/lug-wine-experimental 2>/dev/null || true
+    [ -d "/workspaces/lug-wine-experimental" ] && [ ! -L "/workspaces/lug-wine-experimental" ] || ln -sfn /lug-wine-experimental /workspaces/lug-wine-experimental 2>/dev/null || true
+  fi
   if [ -d "/lug-helper" ]; then
-    mkdir -p /home/tarfy/Documents/GitHub/renanmb 2>/dev/null || true
+    mkdir -p /home/tarfy/Documents/GitHub/renanmb /workspaces 2>/dev/null || true
     ln -sfn /lug-helper /home/tarfy/Documents/GitHub/renanmb/lug-helper 2>/dev/null || true
+    [ -d "/workspaces/lug-helper" ] && [ ! -L "/workspaces/lug-helper" ] || ln -sfn /lug-helper /workspaces/lug-helper 2>/dev/null || true
   fi
 fi
 

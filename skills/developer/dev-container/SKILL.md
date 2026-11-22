@@ -19,7 +19,7 @@ Built as `root` at image build time so post-create hooks never hit global permis
 
 `postCreateCommand` runs [`bash .devcontainer/init_agent_workspace.sh`](../../../.devcontainer/init_agent_workspace.sh), which idempotently:
 1. Ensures the 4-pillar `.agents/` hierarchy (`memory/`, `references/`, `scratch/`, `skills/`) and relative symlinks (`.agent`, `.claude/skills`, `.agents/skills/*`) exist.
-2. Preserves convenience symlinks inside the container when LUG bind mounts (`lug-helper`, `Games`) are present.
+2. Preserves convenience symlinks inside the container when LUG bind mounts (`lug-wine-experimental`, `lug-helper`, `Games`) are present.
 3. Merges the `filesystem` MCP entry non-destructively into `.vscode/mcp.json`, `.cursor/mcp.json`, `$HOME/.gemini/config/mcp_config.json`, `$HOME/.claude.json`, and `$HOME/.codex/config.toml`.
 
 ## 3. Host Audio vs. Container Isolation
@@ -30,4 +30,4 @@ Built as `root` at image build time so post-create hooks never hit global permis
 
 ## 4. Bind-Mount Safety Boundary
 
-`devcontainer.json` mounts sibling LUG directories (`lug-helper` and `Games`) so agents can inspect launch scripts (such as Star Citizen's `sc-launch.sh`) for `PULSE_SINK=virtspk` compatibility. Treat those external bind mounts as **strictly read-only** unless the user explicitly asks to edit them.
+`devcontainer.json` mounts sibling LUG directories (`lug-wine-experimental`, `lug-helper`, and `Games`) so agents can inspect Wine source patches and launch scripts (such as Star Citizen's `sc-launch.sh`) for `PULSE_SINK=virtspk` compatibility. Treat those external bind mounts as **strictly read-only** unless the user explicitly asks to edit them.

@@ -5,7 +5,7 @@
 
 ## 2. Context & Pre-Slice Audit
 - **Target Files** (strictly repository-relative links):
-  - [`virtual-cables-pulseaudio.sh`](../../../../virtual-cables-pulseaudio.sh)
+  - [`virtual-cables-pulseaudio.sh`](../../../virtual-cables-pulseaudio.sh)
 - **Invariants & Constraints**:
   - Bash `set -euo pipefail`, POSIX `mawk`-compatible regexes (`[ \t]`, never `\s`).
   - Zero `file://` or absolute `/` Markdown links.

@@ -139,18 +139,30 @@ finally:
     probe.parent.rmdir()
 
 bad_link_re = re.compile(r"\]\((?:file://|/[^)\s]+)")
+rel_link_re = re.compile(r"\]\(([^)#\s]+)")
 bad_links = []
+broken_links = []
 for md in list((root / ".agents").rglob("*.md")) + list((root / "skills").rglob("*.md")) + [root / "AGENTS.md", root / "README.md"]:
     if md.is_file():
         stripped = re.sub(r"```.*?```", "", md.read_text(errors="ignore"), flags=re.S)
-        if bad_link_re.search(stripped):
+        stripped_no_inline = re.sub(r"`[^`]*`", "", stripped)
+        if bad_link_re.search(stripped_no_inline):
             bad_links.append(str(md.relative_to(root)))
+        for m in rel_link_re.finditer(stripped_no_inline):
+            target = m.group(1)
+            if target.startswith(("http://", "https://", "mailto:")):
+                continue
+            if not (md.parent / target).resolve().exists():
+                broken_links.append(f"{md.relative_to(root)} -> {target}")
 checks["zero absolute or file-URI Markdown links"] = len(bad_links) == 0
+checks["all relative Markdown links resolve on disk"] = len(broken_links) == 0
 
 for name, ok in checks.items():
     print(f"[{'PASS' if ok else 'FAIL'}] {name}")
 if bad_links:
     print("  Violating files:", bad_links)
+if broken_links:
+    print("  Broken links:", broken_links)
 assert all(checks.values()), "One or more conformance checks failed"
 PY
 

@@ -95,7 +95,7 @@ Before executing large plans, run in parallel:
 
 ### D. Cross-Session / Multi-Repo Protocol
 
-- **Single-Writer Ownership**: Only one active agent session may hold write ownership of this repository at a time. Bind-mounted sibling paths (`lug-helper`, `star-citizen`) are treated as **read-only** from this workspace unless the user explicitly authorizes cross-repo edits.
+- **Single-Writer Ownership**: Only one active agent session may hold write ownership of this repository at a time. Bind-mounted sibling paths (`lug-wine-experimental`, `lug-helper`, `star-citizen`) are treated as **read-only** from this workspace unless the user explicitly authorizes cross-repo edits.
 - **Handoff & Bootstrap**: Cross-session handoffs record JSON/Markdown receipts in `.agents/memory/sessions/`, and `/goal` prompts explicitly list bootstrap reads (`AGENTS.md`, active plan in `.agents/references/plans/`, and relevant `.agent/skills/<name>/SKILL.md`).
 
 ---
