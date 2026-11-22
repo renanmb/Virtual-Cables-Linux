@@ -1,0 +1,27 @@
+# Editor & OS swap files
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Local IDE & agent runtime state
+.cursor/
+.vscode/mcp.json
+.hermes/
+.claude/*
+!.claude/skills
+skills-lock.json
+.agents/skills-lock.json
+.agents/scratch/*
+!.agents/scratch/.gitkeep
+
+# Ignore dynamically fetched external skills by default
+.agents/skills/*
+
+# Whitelist tracked first-party skill symlinks and workspace skills
+!.agents/skills/commit-and-pr
+!.agents/skills/run-tests
+!.agents/skills/dev-container
+!.agents/skills/setup-*
+!.agents/skills/session-memory
+!.agents/skills/session-memory/**

@@ -1,0 +1,40 @@
+{
+  "name": "Virtual-Cables-Linux (Antigravity + Claude + Hermes + Codex)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+      },
+      "extensions": [
+        "anthropic.claude-code",
+        "ms-python.python",
+        "timonwong.shellcheck",
+        "eamodio.gitlens",
+        "yzhang.markdown-all-in-one",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}",
+    "OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}",
+    "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
+    "HERMES_HOME": "/root/.hermes",
+    "HF_TOKEN": "${localEnv:HF_TOKEN}"
+  },
+  "mounts": [
+    "source=/home/tarfy/Documents/GitHub/renanmb/lug-helper,target=/lug-helper,type=bind",
+    "source=/home/tarfy/Games,target=/home/tarfy/Games,type=bind",
+    "source=claude-code-config-${devcontainerId},target=/root/.claude,type=volume",
+    "source=hermes-home-${devcontainerId},target=/root/.hermes,type=volume",
+    "source=antigravity-config-${devcontainerId},target=/root/.gemini,type=volume",
+    "source=gh-config-${devcontainerId},target=/root/.config/gh,type=volume"
+  ],
+  "postCreateCommand": "bash .devcontainer/init_agent_workspace.sh"
+}
