@@ -65,8 +65,13 @@ Prefer `PULSE_SINK=virtspk` over `pavucontrol` for Wine games so `module-stream-
 
 1. **Always ensure `virtspk` exists before launching** (if `virtspk` is missing, `libpulse` fails stream creation and the game launches silent):
    ```bash
+   # Direct Wine / CLI:
    ./virtual-cables-pulseaudio.sh >/dev/null && PULSE_SINK=virtspk wine Game.exe
+
+   # Steam per-game Launch Options (Proton & Native Linux):
+   if /path/to/virtual-cables-pulseaudio.sh >/dev/null 2>&1; then export PULSE_SINK=virtspk; fi; %command%
    ```
+   *(For Snap/Flatpak Steam where host script paths are sandboxed, run `virtual-cables-pulseaudio.sh` on the host first and set Launch Options to `PULSE_SINK=virtspk %command%`; add `SDL_AUDIODRIVER=pulse` for older native SDL/ALSA ports. See [`04_audio_isolation_and_obs_streaming_guide.md`](../../../.agents/references/docs/04_audio_isolation_and_obs_streaming_guide.md).)*
 2. **Leave `PULSE_SOURCE` unset** so in-game VOIP (e.g., Star Citizen voice chat) keeps using the user's real physical microphone.
 3. Keep the in-game Audio Output setting on **Default / System Default**.
 
